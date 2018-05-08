@@ -21,6 +21,6 @@
 
 <style lang="scss" scoped>
   #app {
-    
+
   }
 </style>

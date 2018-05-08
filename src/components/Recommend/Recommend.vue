@@ -5,7 +5,28 @@
 </template>
 
 <script>
-  export default {};
+  import {getRecommendReq} from '../../api/recommendReq.js';
+
+  export default {
+    data() {
+      return {
+        recommends: []
+      }
+    },
+    created: function() {
+      this._getRecommendReq();
+    },
+    methods: {
+      _getRecommendReq() {
+        const res = getRecommendReq();
+        res.then((res) => {
+          if (res.code === 0) {
+            this.recommends = res.data.slider
+          }
+        })
+      }
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
