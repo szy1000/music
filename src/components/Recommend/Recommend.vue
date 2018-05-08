@@ -1,6 +1,10 @@
 <template>
   <div id="recommend">
-    <h1>recommend</h1>
+    <ul>
+      <li v-for="(item,index) in recommends" :key="index">
+        <img :src="item.picUrl">
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -34,5 +38,8 @@
   @import "../../common/scss/mixin.scss";
 
   #recommend {
+    img{
+      width: 100%;
+    }
   }
 </style>
