@@ -1,21 +1,29 @@
 <template>
   <div id="recommend">
-    <ul>
-      <li v-for="(item,index) in recommends" :key="index">
-        <img :src="item.picUrl">
-      </li>
-    </ul>
+    <div v-if="recommends.length" class="slider-wrapper">
+      <i-slider>
+        <div v-for="(item,index) in recommends" :key="index">
+          <a :href="item.linkUrl">
+            <img :src="item.picUrl">
+          </a>
+        </div>
+      </i-slider>
+    </div>
   </div>
 </template>
 
 <script>
   import {getRecommendReq} from '../../api/recommendReq.js';
+  import iSlider from '../../Base/slider/slider';
 
   export default {
     data() {
       return {
         recommends: []
-      }
+      };
+    },
+    components: {
+      iSlider
     },
     created: function() {
       this._getRecommendReq();
@@ -25,9 +33,9 @@
         const res = getRecommendReq();
         res.then((res) => {
           if (res.code === 0) {
-            this.recommends = res.data.slider
+            this.recommends = res.data.slider;
           }
-        })
+        });
       }
     }
   };
@@ -38,8 +46,10 @@
   @import "../../common/scss/mixin.scss";
 
   #recommend {
-    img{
+    .slider-wrapper {
+      position: relative;
       width: 100%;
+      overflow: hidden;
     }
   }
 </style>
