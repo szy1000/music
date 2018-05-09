@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import {getRecommendReq} from '../../api/recommendReq.js';
+  import {getRecommendReq, getDiscReq} from '../../api/recommendReq.js';
   import iSlider from '../../Base/slider/slider';
 
   export default {
@@ -27,6 +27,7 @@
     },
     created: function() {
       this._getRecommendReq();
+      this._getDiscReq();
     },
     methods: {
       _getRecommendReq() {
@@ -36,6 +37,14 @@
             this.recommends = res.data.slider;
           }
         });
+      },
+      _getDiscReq() {
+        const res = getDiscReq();
+        res.then((res) => {
+          if (res.code === 0) {
+            console.log(res.data);
+          }
+        })
       }
     }
   };
