@@ -25,7 +25,7 @@ export function getDiscReq() {
     needNewCode: 0,
     categoryId: 10000000,
     rnd: Math.random(),
-    format: 'json'
+    format: 'jsonp'
   })
   console.log(data);
   return jsonp(url, data, options)
