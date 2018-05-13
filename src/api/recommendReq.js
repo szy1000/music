@@ -1,5 +1,6 @@
 import jsonp from 'common/js/jsonp';
 import {commonParams, options} from './config';
+import axios from 'axios';
 
 export function getRecommendReq() {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
@@ -15,7 +16,8 @@ export function getRecommendReq() {
 
 export function getDiscReq() {
   // const url = 'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg';
-  const url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg';
+
+  const url = '/api/getDiscList';
   const data = Object.assign({}, commonParams, {
     platform: 'yqq',
     hostUin: 0,
@@ -25,8 +27,9 @@ export function getDiscReq() {
     needNewCode: 0,
     categoryId: 10000000,
     rnd: Math.random(),
-    format: 'jsonp'
+    format: 'json'
   })
-  console.log(data);
-  return jsonp(url, data, options)
+  return axios.get(url, {param: data}).then((res) => {
+    return Promise.resolve(res.data)
+  })
 }
