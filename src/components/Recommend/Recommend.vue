@@ -9,7 +9,7 @@
         </div>
       </i-slider>
     </div>
-    <div class="recommend-list">
+    <scroll class="recommend-list" :data="discList">
       <h1 class="list-title">热门歌单推荐</h1>
       <ul>
         <li v-for="item in discList" class="item">
@@ -22,13 +22,14 @@
           </div>
         </li>
       </ul>
-    </div>
+    </scroll>
   </div>
 </template>
 
 <script>
   import {getRecommendReq, getDiscReq} from '../../api/recommendReq.js';
   import iSlider from '../../Base/slider/slider';
+  import scroll from '../../Base/scroll/index';
 
   export default {
     data() {
@@ -38,9 +39,10 @@
       };
     },
     components: {
-      iSlider
+      iSlider,
+      scroll
     },
-    created: function() {
+    created: function () {
       this._getRecommendReq();
       this._getDiscReq();
     },
@@ -76,26 +78,26 @@
       width: 100%;
       overflow: hidden;
     }
-    .recommend-list{
-      .list-title{
+    .recommend-list {
+      .list-title {
         height: 65px;
         line-height: 65px;
         text-align: center;
         font-size: $font-size-medium;
         color: $color-theme;
       }
-      .item{
+      .item {
         display: flex;
         box-sizing: border-box;
         align-items: center;
         padding: 0 20px 20px 20px;
       }
-      .icon{
+      .icon {
         flex: 0 0 60px;
         width: 60px;
         padding-right: 20px;
       }
-      .text{
+      .text {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -103,11 +105,11 @@
         line-height: 20px;
         overflow: hidden;
         font-size: $font-size-medium;
-        .name{
+        .name {
           margin-bottom: 10px;
           color: $color-text;
         }
-        .desc{
+        .desc {
           color: $color-text-d
         }
 
