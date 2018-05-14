@@ -29,7 +29,7 @@ export function getDiscReq() {
     rnd: Math.random(),
     format: 'json'
   })
-  return axios.get(url, {param: data}).then((res) => {
+  return axios.get(url, {params: data}).then((res) => {
     return Promise.resolve(res.data)
   })
 }
