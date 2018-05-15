@@ -58,6 +58,4 @@
 </script>
 
 <style lang="scss">
-  // @import '../../common/scss/mixin.scss';
-
 </style>
