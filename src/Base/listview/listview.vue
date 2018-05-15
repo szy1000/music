@@ -19,11 +19,9 @@
 
   export default {
     props: {
-      data() {
-        return {
-          type: Array,
-          default: []
-        }
+      data: {
+        type: Array,
+        default: null
       }
     },
     components: {
@@ -35,15 +33,15 @@
 <style lang="scss">
   @import '../../common/scss/variable';
 
-  .listview{
+  .listview {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
     background: $color-background;
-    .list-group{
+    .list-group {
       padding-bottom: 30px;
-      .list-group-title{
+      .list-group-title {
         height: 30px;
         line-height: 30px;
         padding-left: 20px;
@@ -51,23 +49,23 @@
         color: $color-text-l;
         background: $color-highlight-background;
       }
-      .list-group-item{
+      .list-group-item {
         display: flex;
         align-items: center;
         padding: 20px 0 0 30px;
-        .avatar{
+        .avatar {
           width: 50px;
           height: 50px;
           border-radius: 50%;
         }
-        .name{
+        .name {
           margin-left: 20px;
           color: $color-text-l;
           font-size: $font-size-medium;
         }
       }
     }
-    .list-shortcut{
+    .list-shortcut {
       position: absolute;
       z-index: 30;
       right: 0;
@@ -79,22 +77,22 @@
       text-align: center;
       background: $color-background-d;
       font-family: Helvetica;
-      .item{
+      .item {
         padding: 3px;
         line-height: 1;
         color: $color-text-l;
         font-size: $font-size-small;
-        &.current{
+        &.current {
           color: $color-theme;
         }
       }
     }
-    .list-fixed{
+    .list-fixed {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      .fixed-title{
+      .fixed-title {
         height: 30px;
         line-height: 30px;
         padding-left: 20px;
@@ -103,7 +101,7 @@
         background: $color-highlight-background;
       }
     }
-    .loading-container{
+    .loading-container {
       position: absolute;
       width: 100%;
       top: 50%;

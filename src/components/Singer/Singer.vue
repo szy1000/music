@@ -1,7 +1,6 @@
 <template>
   <div id="singer">
     <list-view :data="singer"></list-view>
-    <h1>singer</h1>
   </div>
 </template>
 
@@ -24,7 +23,6 @@
         const result = getSingerListReq();
         result.then((res) => {
           this.singer = this._normalizeSinger(res.data.list);
-          console.log(this.singer);
         })
       },
       _normalizeSinger(list) {
