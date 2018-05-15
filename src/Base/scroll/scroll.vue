@@ -15,22 +15,12 @@
       },
       click: {
         type: Boolean,
-        default: true,
+        default: true
       },
       data: {
         type: Array,
         default: null
       }
-    },
-    data() {
-      return {
-        ratings: [],
-      }
-    },
-    components: {
-      // star,
-    },
-    created() {
     },
     mounted() {
       setTimeout(() => {
@@ -39,7 +29,7 @@
     },
     methods: {
       _initSroll() {
-        if(!this.$refs.wrapper) {
+        if (!this.$refs.wrapper) {
           return
         }
         this.scroll = new Bscroll(this.$refs.wrapper, {
