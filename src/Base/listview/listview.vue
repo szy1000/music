@@ -3,6 +3,7 @@
           :data="data"
           ref="listview"
           @scroll="scroll"
+          :probeType="probeType"
           :listenScroll="listenScroll">
     <ul>
       <li v-for="(group,index) in data" class="list-group" :key="index" ref="listGroup">
@@ -17,7 +18,9 @@
     </ul>
     <div class="list-shortcut" @touchstart="onShortcutStart" @touchmove.stop.prevent="onShortcutTouchMove">
       <ul v-if="shortcutList.length">
-        <li class="item" v-for="(item,index) in shortcutList" :data-index="index" :key="index">{{item}}</li>
+        <li class="item"
+            :class="{'current': currentIndex === index }"
+            v-for="(item,index) in shortcutList" :data-index="index" :key="index">{{item}}</li>
       </ul>
     </div>
   </scroll>
@@ -32,6 +35,13 @@
       this.touch = {}
       this.listenScroll = true
       this.listHeight = []
+      this.probeType = 3
+    },
+    data() {
+      return {
+        scrollY: -1,
+        currentIndex: 0
+      }
     },
     props: {
       data: {
@@ -87,6 +97,19 @@
         setTimeout(() => {
           this._calculateHeight()
         }, 20)
+      },
+      scrollY(newY) {
+        const listHeight = this.listHeight;
+        for (let i = 0; i < listHeight.length; i++) {
+          let height1 = listHeight[i];
+          let height2 = listHeight[i + 1];
+          if (!height2 || (-newY > height1 && -newY < height2)) {
+            this.currentIndex = i;
+            console.log(this.currentIndex);
+            return
+          }
+        }
+        this.currentIndex = 0;
       }
     },
     components: {
