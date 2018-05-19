@@ -20,8 +20,12 @@
       <ul v-if="shortcutList.length">
         <li class="item"
             :class="{'current': currentIndex === index }"
-            v-for="(item,index) in shortcutList" :data-index="index" :key="index">{{item}}</li>
+            v-for="(item,index) in shortcutList" :data-index="index" :key="index">{{item}}
+        </li>
       </ul>
+    </div>
+    <div class="list-fixed" v-show="fixedTItle">
+      <h1 class="fixed-title">{{fixedTItle}}</h1>
     </div>
   </scroll>
 </template>
@@ -40,7 +44,8 @@
     data() {
       return {
         scrollY: -1,
-        currentIndex: 0
+        currentIndex: 0,
+        diff: -1
       }
     },
     props: {
@@ -54,6 +59,12 @@
         return this.data.map((group) => {
           return group.title.substr(0, 1)
         })
+      },
+      fixedTItle() {
+        if (this.scrollY > 0) {
+          return
+        }
+        return this.data[this.currentIndex] ? this.data[this.currentIndex].title : ''
       }
     },
     mounted() {
@@ -74,6 +85,8 @@
         this._scrollTo(anchorIndex);
       },
       _scrollTo(index) {
+        console.log(index)
+        this.scrollY = -this.listHeight[index];
         this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 400);
       },
       scroll(pos) {
@@ -101,22 +114,28 @@
       scrollY(newY) {
         const listHeight = this.listHeight;
         // 当滚动到顶部 newY > 0
-        if(newY > 0) {
+        if (newY > 0) {
           this.currentIndex = 0;
           return
         }
         // 在中间部分滚动
-        for (let i = 0; i < listHeight.length-1; i++) {
+        for (let i = 0; i < listHeight.length - 1; i++) {
           let height1 = listHeight[i];
           let height2 = listHeight[i + 1];
           if (!height2 || (-newY > height1 && -newY < height2)) {
             this.currentIndex = i;
-            console.log(this.currentIndex);
+            this.diff = height2 + newY
             return
           }
         }
-
         this.currentIndex = 0;
+      },
+      diff(newVal) {
+        let fixedTop = (newVal > 0 && newVal < 30) ? newVal - 30 : 0;
+        if (this.fixedTop === fixedTop) {
+          return
+        }
+        this.fixedTop = fixedTop
       }
     },
     components: {
