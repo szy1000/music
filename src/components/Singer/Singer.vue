@@ -1,6 +1,7 @@
 <template>
   <div id="singer">
-    <list-view :data="singer"></list-view>
+    <list-view @select="selectSinger" :data="singer"></list-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -19,6 +20,12 @@
       this._getSingerFn();
     },
     methods: {
+      selectSinger(singer) {
+        this.$router.push({
+          path: `/singer/${singer.id}`
+        })
+        console.log(singer)
+      },
       _getSingerFn() {
         const result = getSingerListReq();
         result.then((res) => {
