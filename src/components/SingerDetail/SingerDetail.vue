@@ -1,9 +1,6 @@
 <template>
   <transition name="slide">
-    <div class="singer-detail">
-      <h1>singer-detail</h1>
-      <p>{{$route.params.id}}</p>
-    </div>
+    <music-list :title="title" :bg-image="bgImage" :songs="songs"></music-list>
   </transition>
 </template>
 
@@ -11,24 +8,31 @@
   import {mapGetters} from 'vuex';
   import {getSingerDetailReq} from '../../api/singerReq';
   import {CreateSong} from '../../common/js/song';
+  import MusicList from '../../components/MusicList/MusicList'
 
   export default {
-    props: {},
     data() {
       return {
-        ratings: []
+        songs: []
       }
     },
     computed: {
+      title() {
+        return this.singer.name
+      },
+      bgImage() {
+        return this.singer.avatar
+      },
       ...mapGetters([
         'singer'
       ])
     },
-    components: {},
+    components: {
+      MusicList
+    },
     created() {
       this._getSingerDetailFn();
     },
-    events: {},
     methods: {
       _getSingerDetailFn() {
         let id = this.singer.id || this.$route.params.id
@@ -46,7 +50,6 @@
             ret.push(new CreateSong(musicData));
           }
         })
-        console.log(ret)
         return ret
       }
     }
@@ -54,19 +57,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../common/scss/mixin.scss';
-  @import '../../common/scss/variable.scss';
-
-  .singer-detail {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: $color-background;
-  }
-
   .slide-enter-active, .slide-leave-active {
     transition: all 0.3s
   }

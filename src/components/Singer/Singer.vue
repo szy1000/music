@@ -9,7 +9,6 @@
   import {getSingerListReq} from '../../api/singerReq';
   import Singer from '../../common/js/singer';
   import listView from '../../Base/listview/listview';
-
   import {mapMutations} from 'vuex';
 
   export default {
