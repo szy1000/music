@@ -9,7 +9,7 @@
 
 <script>
   import {mapGetters} from 'vuex';
-  import {getSingerDetailReq} from '../../api/singerReq';
+  import {getSingerDetailReq, getSongKeyReq} from '../../api/singerReq';
   import {CreateSong} from '../../common/js/song';
 
   export default {
@@ -26,10 +26,19 @@
     },
     components: {},
     created() {
+      this._getSongKeyFn();
       this._getSingerDetailFn();
     },
     events: {},
     methods: {
+      _getSongKeyFn() {
+        let id = this.singer.id || this.$route.params.id
+        getSongKeyReq(id).then((res) => {
+          if (res.code === 0) {
+            this._normalizeSongs(res.data.list);
+          }
+        })
+      },
       _getSingerDetailFn() {
         let id = this.singer.id || this.$route.params.id
         getSingerDetailReq(id).then((res) => {
