@@ -41,7 +41,7 @@ export function CreateSong(musicData) {
     album: musicData.albumname,
     duration: musicData.interval,
     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
-    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?fromtag=66`
+    url: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?fromtag=32`
   })
 }
 
