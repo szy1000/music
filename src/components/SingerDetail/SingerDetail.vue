@@ -2,11 +2,14 @@
   <transition name="slide">
     <div class="singer-detail">
       <h1>singer-detail</h1>
+      <p>{{$route.params.id}}</p>
     </div>
   </transition>
 </template>
 
 <script>
+  import {mapGetters} from 'vuex';
+
   export default {
     props: {},
     data() {
@@ -14,13 +17,17 @@
         ratings: []
       }
     },
+    computed: {
+      ...mapGetters([
+        'singer'
+      ])
+    },
     components: {},
     created() {
+      console.log(this.singer)
     },
     events: {},
     methods: {
-      needShow(type, text) {
-      }
     }
   }
 </script>

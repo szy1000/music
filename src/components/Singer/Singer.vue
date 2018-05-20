@@ -10,6 +10,8 @@
   import Singer from '../../common/js/singer';
   import listView from '../../Base/listview/listview';
 
+  import {mapMutations} from 'vuex';
+
   export default {
     data() {
       return {
@@ -24,7 +26,7 @@
         this.$router.push({
           path: `/singer/${singer.id}`
         })
-        console.log(singer)
+        this.setSinger(singer);
       },
       _getSingerFn() {
         const result = getSingerListReq();
@@ -77,7 +79,10 @@
         })
 
         return hot.concat(ret)
-      }
+      },
+      ...mapMutations({
+        setSinger: 'SINGER'
+      })
     },
     components: {
       listView
