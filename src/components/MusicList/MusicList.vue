@@ -5,8 +5,10 @@
     <div class="bg-image" :style="bgStyle">
       <div class="filter"></div>
     </div>
-    <scroll>
-      <song-list></song-list>
+    <scroll :data="songs" class="list">
+      <div class="song-list-wrapper">
+        <song-list :songs="songs"></song-list>
+      </div>
     </scroll>
   </div>
 </template>

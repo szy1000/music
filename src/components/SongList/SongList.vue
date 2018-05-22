@@ -19,14 +19,6 @@
         default: null
       }
     },
-    data() {
-      return {
-        ratings: []
-      }
-    },
-    components: {
-      // star,
-    },
     created() {
     },
     events: {},
