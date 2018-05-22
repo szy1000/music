@@ -5,10 +5,15 @@
     <div class="bg-image" :style="bgStyle">
       <div class="filter"></div>
     </div>
+    <scroll>
+      <song-list></song-list>
+    </scroll>
   </div>
 </template>
 
 <script>
+  import scroll from '../../Base/scroll/scroll'
+  import songList from '../../components/SongList/SongList'
   export default {
     props: {
       bgImage: {
@@ -33,6 +38,10 @@
       back() {
         this.$router.back()
       }
+    },
+    components: {
+      scroll,
+      songList
     }
   }
 </script>

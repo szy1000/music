@@ -1,7 +1,7 @@
 <template>
   <div class="song-list">
     <ul>
-      <li v-for="song in songs">
+      <li v-for="(song,index) in songs" :key="index">
         <div class="content">
           <h2 class="name">{{song.name}}</h2>
           <p class="desc">{{getDesc(song)}}</p>
@@ -16,12 +16,12 @@
     props: {
       songs: {
         type: Array,
-        default: []
+        default: null
       }
     },
     data() {
       return {
-        ratings: [],
+        ratings: []
       }
     },
     components: {

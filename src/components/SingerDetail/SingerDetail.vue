@@ -35,7 +35,11 @@
     },
     methods: {
       _getSingerDetailFn() {
-        let id = this.singer.id || this.$route.params.id
+        let id = this.singer.id;
+        if (!id) {
+          this.$router.push('/singer')
+          return
+        }
         getSingerDetailReq(id).then((res) => {
           if (res.code === 0) {
             this._normalizeSongs(res.data.list);
