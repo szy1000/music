@@ -42,7 +42,7 @@
         }
         getSingerDetailReq(id).then((res) => {
           if (res.code === 0) {
-            this._normalizeSongs(res.data.list);
+            this.songs = this._normalizeSongs(res.data.list);
           }
         })
       },
