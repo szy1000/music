@@ -2,10 +2,10 @@
   <div class="music-list">
     <div class="back" @click="back"><i class="icon-back"></i></div>
     <h1 class="title" v-html="title"></h1>
-    <div class="bg-image" :style="bgStyle">
+    <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="filter"></div>
     </div>
-    <scroll :data="songs" class="list">
+    <scroll :data="songs" class="list" ref="list">
       <div class="song-list-wrapper">
         <song-list :songs="songs"></song-list>
       </div>
@@ -35,6 +35,9 @@
       bgStyle() {
         return `background-image: url(${this.bgImage})`
       }
+    },
+    mounted() {
+      this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
     },
     methods: {
       back() {
@@ -131,22 +134,23 @@
           position: relative;
           height: 100%;
           background: $color-background;
-          .list {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-            background: $color-background;
-            .song-list-wrapper {
-              padding: 20px 30px;
-              .loading-container {
-                position: absolute;
-                width: 100%;
-                top: 50%;
-                transform: translateY(-50%);
-              }
-            }
-          }
+
+        }
+      }
+    }
+    .list {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      background: $color-background;
+      .song-list-wrapper {
+        padding: 20px 30px;
+        .loading-container {
+          position: absolute;
+          width: 100%;
+          top: 50%;
+          transform: translateY(-50%);
         }
       }
     }
