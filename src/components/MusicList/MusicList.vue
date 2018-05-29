@@ -5,7 +5,8 @@
     <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="filter"></div>
     </div>
-    <scroll :data="songs" class="list" ref="list">
+    <div class="bg-layer" ref="layer"></div>
+    <scroll @scroll="scroll" :probe-type="probeType" :data="songs" class="list" ref="list">
       <div class="song-list-wrapper">
         <song-list :songs="songs"></song-list>
       </div>
@@ -39,9 +40,28 @@
     mounted() {
       this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
     },
+    created() {
+      this.probeType = 3;
+      this.listenScroll = true
+    },
+    data() {
+      return {
+        scrollY: 0
+      }
+    },
     methods: {
       back() {
         this.$router.back()
+      },
+      scroll(pos) {
+        console.log(pos.y)
+        this.scrollY = pos.y
+      }
+    },
+    watch: {
+      scroll(newY) {
+        this.$refs.layer.style['transform'] = `translate3d(0,${newY},0)`;
+        this.$refs.layer.style['webkit-transform'] = `translate3d(0,${newY},0)`;
       }
     },
     components: {
@@ -130,13 +150,13 @@
           height: 100%;
           background: rgba(7, 17, 27, 0.4);
         }
-        .bg-layer {
-          position: relative;
-          height: 100%;
-          background: $color-background;
-
-        }
       }
+    }
+    .bg-layer {
+      position: relative;
+      height: 100%;
+      background: $color-background;
+
     }
     .list {
       position: fixed;
