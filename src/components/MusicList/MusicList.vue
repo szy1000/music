@@ -54,12 +54,12 @@
         this.$router.back()
       },
       scroll(pos) {
-        console.log(pos.y)
+        console.log(pos)
         this.scrollY = pos.y
       }
     },
     watch: {
-      scroll(newY) {
+      scrollY(newY) {
         this.$refs.layer.style['transform'] = `translate3d(0,${newY},0)`;
         this.$refs.layer.style['webkit-transform'] = `translate3d(0,${newY},0)`;
       }
