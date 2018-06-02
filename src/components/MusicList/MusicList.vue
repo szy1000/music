@@ -63,10 +63,14 @@
     watch: {
       scrollY(newY) {
         let zIndex = 0;
+        let scale = 1;
         let minTranslateY = Math.max(this.imgHeight, newY);
         this.$refs.layer.style['transform'] = `translate3d(0,${minTranslateY}px,0)`;
         this.$refs.layer.style['webkit-transform'] = `translate3d(0,${minTranslateY}px,0)`;
-
+        const percent = Math.abs(newY / this.imgHeight);
+        if (newY > 0) {
+          scale = 1 + percent
+        }
         if (newY < this.imgHeight) {
           zIndex = 10;
           this.$refs.bgImage.style.paddingTop = 0;
@@ -77,7 +81,6 @@
           this.$refs.bgImage.style.height = 0;
         }
         this.$refs.bgImage.style.zIndex = zIndex;
-
       }
     },
     components: {
