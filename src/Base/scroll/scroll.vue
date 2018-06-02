@@ -28,6 +28,7 @@
     },
     mounted() {
       setTimeout(() => {
+        console.log(this.props)
         this._initSroll();
       }, 20)
     },

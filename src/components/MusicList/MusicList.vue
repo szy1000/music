@@ -6,7 +6,8 @@
       <div class="filter"></div>
     </div>
     <div class="bg-layer" ref="layer"></div>
-    <scroll @scroll="scroll" :probe-type="probeType" :data="songs" class="list" ref="list">
+    <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list"
+            ref="list">
       <div class="song-list-wrapper">
         <song-list :songs="songs"></song-list>
       </div>
@@ -17,6 +18,7 @@
 <script>
   import scroll from '../../Base/scroll/scroll'
   import songList from '../../components/SongList/SongList'
+
   export default {
     props: {
       bgImage: {
@@ -38,6 +40,7 @@
       }
     },
     mounted() {
+      this.imgHeight = -this.$refs.bgImage.clientHeight + 40;
       this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
     },
     created() {
@@ -54,14 +57,27 @@
         this.$router.back()
       },
       scroll(pos) {
-        console.log(pos)
         this.scrollY = pos.y
       }
     },
     watch: {
       scrollY(newY) {
-        this.$refs.layer.style['transform'] = `translate3d(0,${newY},0)`;
-        this.$refs.layer.style['webkit-transform'] = `translate3d(0,${newY},0)`;
+        let zIndex = 0;
+        let minTranslateY = Math.max(this.imgHeight, newY);
+        this.$refs.layer.style['transform'] = `translate3d(0,${minTranslateY}px,0)`;
+        this.$refs.layer.style['webkit-transform'] = `translate3d(0,${minTranslateY}px,0)`;
+
+        if (newY < this.imgHeight) {
+          zIndex = 10;
+          this.$refs.bgImage.style.paddingTop = 0;
+          this.$refs.bgImage.style.height = '40px';
+        } else {
+          zIndex = 0;
+          this.$refs.bgImage.style.paddingTop = '70%';
+          this.$refs.bgImage.style.height = 0;
+        }
+        this.$refs.bgImage.style.zIndex = zIndex;
+
       }
     },
     components: {
