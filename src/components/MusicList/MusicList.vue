@@ -90,7 +90,6 @@
           this.$refs.bgImage.style.paddingTop = 0;
           this.$refs.bgImage.style.height = '40px';
           this.$refs.playBtn.style.display = 'none';
-
         } else {
           this.$refs.bgImage.style.paddingTop = '70%';
           this.$refs.bgImage.style.height = 0;
