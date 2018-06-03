@@ -3,7 +3,13 @@
     <div class="back" @click="back"><i class="icon-back"></i></div>
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
-      <div class="filter"></div>
+      <div class="play-wrapper">
+        <div class="play" v-show="songs.length > 0" ref="playBtn">
+          <i class="icon-play"></i>
+          <span class="text">随机播放全部</span>
+        </div>
+      </div>
+      <div class="filter" ref="filter"></div>
     </div>
     <div class="bg-layer" ref="layer"></div>
     <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list"
@@ -11,12 +17,16 @@
       <div class="song-list-wrapper">
         <song-list :songs="songs"></song-list>
       </div>
+      <div class="loading-wrapper" v-show="!songs.length">
+        <loading></loading>
+      </div>
     </scroll>
   </div>
 </template>
 
 <script>
   import scroll from '../../Base/scroll/scroll'
+  import loading from '../../Base/loading/loading'
   import songList from '../../components/SongList/SongList'
 
   export default {
@@ -64,28 +74,39 @@
       scrollY(newY) {
         let zIndex = 0;
         let scale = 1;
+        let blur = 0;
         let minTranslateY = Math.max(this.imgHeight, newY);
         this.$refs.layer.style['transform'] = `translate3d(0,${minTranslateY}px,0)`;
-        this.$refs.layer.style['webkit-transform'] = `translate3d(0,${minTranslateY}px,0)`;
+        this.$refs.layer.style['webkitTransform'] = `translate3d(0,${minTranslateY}px,0)`;
         const percent = Math.abs(newY / this.imgHeight);
         if (newY > 0) {
-          scale = 1 + percent
+          scale = 1 + percent;
+          zIndex = 10;
+        } else {
+          blur = Math.min(20 * percent, 20);
         }
         if (newY < this.imgHeight) {
           zIndex = 10;
           this.$refs.bgImage.style.paddingTop = 0;
           this.$refs.bgImage.style.height = '40px';
+          this.$refs.playBtn.style.display = 'none';
+
         } else {
-          zIndex = 0;
           this.$refs.bgImage.style.paddingTop = '70%';
           this.$refs.bgImage.style.height = 0;
+          this.$refs.playBtn.style.display = '';
         }
+        this.$refs.filter.style['backdrop-filter'] = `blur(${blur}px)`;
+        this.$refs.filter.style['webkitBackdrop-filter'] = `blur(${blur}px)`;
         this.$refs.bgImage.style.zIndex = zIndex;
+        this.$refs.bgImage.style['transform'] = `scale(${scale})`;
+        this.$refs.bgImage.style['webkitTransform'] = `scale(${scale})`;
       }
     },
     components: {
       scroll,
-      songList
+      songList,
+      loading
     }
   }
 </script>
@@ -161,16 +182,17 @@
             font-size: $font-size-small;
           }
         }
-        .filter {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(7, 17, 27, 0.4);
-        }
+      }
+      .filter {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(7, 17, 27, 0.4);
       }
     }
+
     .bg-layer {
       position: relative;
       height: 100%;
