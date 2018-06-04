@@ -28,7 +28,7 @@
   import scroll from '../../Base/scroll/scroll'
   import loading from '../../Base/loading/loading'
   import songList from '../../components/SongList/SongList'
-
+  import {mapActions} from 'vuex';
   export default {
     props: {
       bgImage: {
@@ -70,8 +70,14 @@
         this.scrollY = pos.y
       },
       selectItem(item, index) {
-        console.log(item, index)
-      }
+        this.selectPlay({
+          list: this.songs,
+          index
+        })
+      },
+      ...mapActions([
+        'selectPlay'
+      ])
     },
     watch: {
       scrollY(newY) {
