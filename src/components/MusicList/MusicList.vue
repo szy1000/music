@@ -15,7 +15,7 @@
     <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list"
             ref="list">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list @select="selectItem" :songs="songs"></song-list>
       </div>
       <div class="loading-wrapper" v-show="!songs.length">
         <loading></loading>
@@ -68,6 +68,9 @@
       },
       scroll(pos) {
         this.scrollY = pos.y
+      },
+      selectItem(item, index) {
+        console.log(item, index)
       }
     },
     watch: {

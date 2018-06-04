@@ -13,17 +13,15 @@ const SET_PLAY_MODE = 'SET_PLAY_MODE'
 
 const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX'
 
-const SET_DISC = 'SET_DISC'
-
-const SET_TOP_LIST = 'SET_TOP_LIST'
-
-const SET_SEARCH_HISTORY = 'SET_SEARCH_HISTORY'
-
-const SET_PLAY_HISTORY = 'SET_PLAY_HISTORY'
-
-const SET_FAVORITE_LIST = 'SET_FAVORITE_LIST'
-
-
+// const SET_DISC = 'SET_DISC'
+//
+// const SET_TOP_LIST = 'SET_TOP_LIST'
+//
+// const SET_SEARCH_HISTORY = 'SET_SEARCH_HISTORY'
+//
+// const SET_PLAY_HISTORY = 'SET_PLAY_HISTORY'
+//
+// const SET_FAVORITE_LIST = 'SET_FAVORITE_LIST'
 
 const mutations = {
   [SINGER](state, singer) {
@@ -46,7 +44,6 @@ const mutations = {
     state.sequenceList = list
   },
 
-
   [SET_PLAY_MODE](state, mode) {
     state.mode = mode
   },
@@ -54,9 +51,6 @@ const mutations = {
   [SET_CURRENT_INDEX](state, index) {
     state.currentIndex = index
   }
-
 }
 
 export default mutations
-
-
