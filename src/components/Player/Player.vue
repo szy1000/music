@@ -36,7 +36,9 @@
           </div>
           <div class="progress-wrapper">
             <span class="time time-l">{{format(currentTime)}}</span>
-            <div class="progress-bar-wrapper"></div>
+            <div class="progress-bar-wrapper">
+              <iprogress></iprogress>
+            </div>
             <span class="time time-r">{{format(currentSong.duration)}}</span>
           </div>
           <div class="operators">
@@ -83,6 +85,7 @@
 <script>
   import {mapGetters, mapMutations} from 'vuex';
   import animations from 'create-keyframe-animation';
+  import iprogress from '../../Base/progress-bar/progress-bar';
 
   export default {
     data() {
@@ -112,7 +115,9 @@
         'currentIndex'
       ])
     },
-    components: {},
+    components: {
+      iprogress
+    },
     created() {
     },
     methods: {
